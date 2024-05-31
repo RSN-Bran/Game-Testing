@@ -37,7 +37,7 @@ function Player.createPlayer()
 
     player.anim = player.animations.left
 
-    player.movePlayer = function(self)
+    function player:movePlayer()
         local isMoving = false
 
         local vx = 0
@@ -77,13 +77,13 @@ function Player.createPlayer()
         end
     end
 
-    player.updatePlayerPosition = function(self)
+    function player:updatePlayerPosition()
         self.position.x = self.collider:getX()
         self.position.y = self.collider:getY()
         
     end
 
-    player.scrollMode = function(self, modeChange)
+    function player:scrollMode(modeChange)
         if modeChange == -1 and self.modeIndex == 1 then
             self.modeIndex = table.getn(self.modes)
         elseif modeChange == 1 and self.modeIndex == table.getn(self.modes) then
@@ -94,7 +94,7 @@ function Player.createPlayer()
         self.mode = mode
     end
 
-    player.draw = function(self)
+    function player:draw()
         self.anim:draw(player.spriteSheet, player.position.x, player.position.y, nil, 6, nil, 6, 9)
     end
 

@@ -19,11 +19,20 @@ function Shot.createShot(player)
         shot.yVelocity = shot.shotSpeed
     end
 
+    shot.soundEffect:setPitch(shot.pitch)
+    shot.soundEffect:play()
+
     shot.checkCollision = function(self)
         if self.collider:enter('Enemy-Hurtbox') then
             local collision_data =self.collider:getEnterCollisionData('Enemy-Hurtbox')
             local enemy = collision_data.collider:getObject()
             enemy:damageEnemy(self.damage)
+            self.isActive=false
+            self.collider:destroy()
+        elseif self.collider:enter('Treasure') then
+            local collision_data =self.collider:getEnterCollisionData('Treasure')
+            local treasure = collision_data.collider:getObject()
+            treasure:increaseCarry(self.carrySpeed)
             self.isActive=false
             self.collider:destroy()
         else
@@ -59,21 +68,30 @@ function shotParams(shotType)
             ttl = 80,
             shotSpeed = 500,
             damage = 1,
-            shotType = "White"
+            shotType = "White",
+            soundEffect = love.audio.newSource('sounds/blip.wav', "static"),
+            pitch = 1,
+            carrySpeed=1
         }
     elseif shotType == "Red" then
         params = {
             ttl = 20,
             shotSpeed = 800,
             damage = 2,
-            shotType = "Red"
+            shotType = "Red",
+            soundEffect = love.audio.newSource('sounds/blip.wav', "static"),
+            pitch=.5,
+            carrySpeed=2
         }
     elseif shotType == "Blue" then
         params = {
             ttl = 10,
             shotSpeed = 1000,
             damage = .5,
-            shotType = "Blue"
+            shotType = "Blue",
+            soundEffect = love.audio.newSource('sounds/blip.wav', "static"),
+            pitch=2,
+            carrySpeed=4
         }
     end
     return params

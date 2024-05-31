@@ -27,9 +27,7 @@ function Enemy.createEnemy(enemyType, position)
     enemy.behavior = function(self, playerPosition, dt)
         distance = calculateDistance(self.position, playerPosition)
         if distance < self.watchRadius then
-            -- angle = math.atan2(self.position.y-playerPosition.y, self.position.x-playerPosition.x)
-            -- vx = self.position.x + math.cos(angle)*self.speed*dt
-            -- vy= self.position.y + math.sin(angle)*self.speed*dt
+
             vx,vy=0,0
             if self.position.x > playerPosition.x then
                 vx=self.speed*-1
