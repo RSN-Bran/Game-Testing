@@ -1,6 +1,6 @@
-Treasure = {}
+treasures = {}
 
-function Treasure.createTreasure(position)
+function createTreasure(position)
     treasure = {}
     treasure.position = position
     treasure.isActive = true
@@ -15,7 +15,7 @@ function Treasure.createTreasure(position)
     treasure.collider:setType("kinematic")
     treasure.collider:setObject(treasure)
 
-    treasure.draw = function(self)
+    function treasure:draw()
         if(self.carrying >= self.weight) then
             love.graphics.setColor(1,0,0)
         else
@@ -31,12 +31,12 @@ function Treasure.createTreasure(position)
     end
 
 
-    treasure.increaseCarry = function(self, speed)
+    function treasure:increaseCarry(speed)
         self.speed = self.speed+speed
         self.carrying = self.carrying+1
     end
 
-    treasure.move = function(self, basePosition)
+    function treasure:move(basePosition)
         
         vx,vy=0,0
         if(self.carrying >= self.weight) then
@@ -55,12 +55,22 @@ function Treasure.createTreasure(position)
         self.collider:setLinearVelocity(vx, vy)
     end
 
-    treasure.cash = function(self)
+    function treasure:cash()
         self.isActive = false
         self.collider:destroy()
     end
 
+    table.insert(treasures, treasure)
+
     return treasure
+end
+
+function treasures:draw()
+    for i, v in ipairs(self) do
+        if v.isActive then
+            v:draw()
+        end
+    end
 end
 
 return Treasure

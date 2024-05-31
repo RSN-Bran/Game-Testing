@@ -11,9 +11,7 @@ function love.update(dt)
     
     player:movePlayer()
 
-    for i, v in ipairs(shots) do
-        v:checkCollision()
-    end
+    
 
     for i,v in ipairs(enemies) do
         if v.alive then
@@ -28,6 +26,9 @@ function love.update(dt)
     base:checkCollision()
 
     world:update(dt)
+    for i, v in ipairs(shots) do
+        v:checkCollision()
+    end
     player:updatePlayerPosition()
 
     -- --cleanup
@@ -92,7 +93,7 @@ function love.draw()
         gameMap:drawLayer(gameMap.layers["Tile Layer 1"])
         gameMap:drawLayer(gameMap.layers["trees"])
                 
-        draw({enemies, shots, treasures})
+        draw()
 
         --Temporary to show colliders
         if DEBUG then
@@ -107,8 +108,8 @@ end
 
 function love.keypressed(key)
     if key == "space" then
-        local newShot = Shot.createShot(player)
-        table.insert(shots, newShot)
+        local newShot = createShot(player)
+        -- table.insert(shots, newShot)
     elseif key == "a" then
         player:scrollMode(-1)
     elseif key == "s" then

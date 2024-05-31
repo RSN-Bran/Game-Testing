@@ -1,6 +1,6 @@
-Shot = {}
+shots = {}
 
-function Shot.createShot(player)
+function createShot(player)
     shot = shotParams(player.modes[player.modeIndex])
     shot.position = {}
     shot.position.x = player.position.x
@@ -22,7 +22,7 @@ function Shot.createShot(player)
     shot.soundEffect:setPitch(shot.pitch)
     shot.soundEffect:play()
 
-    shot.checkCollision = function(self)
+    function shot:checkCollision()
         if self.collider:enter('Enemy-Hurtbox') then
             local collision_data =self.collider:getEnterCollisionData('Enemy-Hurtbox')
             local enemy = collision_data.collider:getObject()
@@ -46,7 +46,7 @@ function Shot.createShot(player)
         end
     end
 
-    shot.draw = function(self)
+    function shot:draw()
         if self.shotType == "White" then
             love.graphics.setColor(1,1,1)
         elseif self.shotType == "Red" then
@@ -58,7 +58,17 @@ function Shot.createShot(player)
         love.graphics.setColor(1,1,1)
     end
 
+    table.insert(shots, shot)
+
     return shot
+end
+
+function shots:draw()
+    for i, v in ipairs(self) do
+        if v.isActive then
+            v:draw()
+        end
+    end
 end
 
 function shotParams(shotType)

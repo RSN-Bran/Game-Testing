@@ -1,7 +1,6 @@
-Enemy = {}
+enemies = {}
 
-require 'global'
-function Enemy.createEnemy(enemyType, position)
+function createEnemy(enemyType, position)
     local enemy = {}
 
     if enemyType == "enemyType1" then
@@ -14,7 +13,7 @@ function Enemy.createEnemy(enemyType, position)
     enemy.collider:setCollisionClass('Enemy-Hurtbox')
     enemy.collider:setObject(enemy)
 
-    enemy.damageEnemy = function(self,inputDamage)
+    function enemy:damageEnemy(inputDamage)
         self.health = self.health - inputDamage
         self.hurtTimer=self.hurtAnimationLength
         if self.health <= 0 then
@@ -24,7 +23,7 @@ function Enemy.createEnemy(enemyType, position)
         end
     end
 
-    enemy.behavior = function(self, playerPosition, dt)
+    function enemy:behavior(playerPosition, dt)
         distance = calculateDistance(self.position, playerPosition)
         if distance < self.watchRadius then
 
@@ -48,7 +47,7 @@ function Enemy.createEnemy(enemyType, position)
     end
     
 
-    enemy.draw = function(self)
+    function enemy:draw()
         if self.health > 0 then
             if self.hurtTimer > 0 then
                 love.graphics.setColor(1, 0, 0)
@@ -81,9 +80,18 @@ function Enemy.createEnemy(enemyType, position)
         end
     end
 
+    table.insert(enemies, enemy)
+
     return enemy
 end
 
+function enemies:draw()
+    for i, v in ipairs(self) do
+        if v.isActive then
+            v:draw()
+        end
+    end
+end
 
 function createEnemyType1(position)
     local params = {
