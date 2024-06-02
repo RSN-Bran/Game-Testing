@@ -1,6 +1,6 @@
-Base = {}
+bases = {}
 
-function Base.createBase(position)
+function createBase(position)
     base = {}
     base.position = position
     base.money=0
@@ -8,11 +8,11 @@ function Base.createBase(position)
     base.collider = world:newCircleCollider(base.position.x, base.position.y, 5)
     base.collider:setCollisionClass('Base')
 
-    base.draw = function(self)
+    function base:draw()
         love.graphics.circle("line", self.position.x, self.position.y, 50)
     end
 
-    base.checkCollision = function(self)
+    function base:checkCollision()
         if self.collider:enter('Treasure') then
             local collision_data =self.collider:getEnterCollisionData('Treasure')
             local treasure = collision_data.collider:getObject()
@@ -25,7 +25,7 @@ function Base.createBase(position)
         self:checkCollision()
     end
 
+    table.insert(bases, base)
+
     return base
 end
-
-return Base

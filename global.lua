@@ -25,3 +25,27 @@ function removeValue(tab, val)
     end
 
 end
+
+function isempty(s)
+    return s == nil or s == ''
+end
+
+function printTableKeys(tab)
+    for k,v in pairs(tab) do
+        print(k)
+    end
+end
+-- function dump(o)
+--     if type(o) == 'table' then
+--        local s = '{ '
+--        for k,v in pairs(o) do
+--           if type(k) ~= 'number' then k = '"'..k..'"' end
+--           s = s .. '['..k..'] = ' .. dump(v) .. ','
+--        end
+--        return s .. '} '
+--     else
+--        return tostring(o)
+--     end
+--  end
+
+-- type(t) == "table"

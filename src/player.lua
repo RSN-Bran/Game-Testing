@@ -1,6 +1,4 @@
-Player = {}
-
-function Player.createPlayer()
+function createPlayer()
     player = {}
 
     --Set Player Position
@@ -37,6 +35,10 @@ function Player.createPlayer()
 
     player.anim = player.animations.left
 
+
+    function player:getPosition()
+        return player.position
+    end
     function player:movePlayer()
         local isMoving = false
 
@@ -106,5 +108,3 @@ function Player.createPlayer()
 
     return player
 end
-
-return Player
