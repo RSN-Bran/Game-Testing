@@ -8,61 +8,9 @@ function love.load()
 end
 
 function love.update(dt)
+
+    updateAll(dt)
     
-    player:movePlayer()
-
-    
-
-    for i,v in ipairs(enemies) do
-        if v.alive then
-            v:behavior(player.position, dt)
-        end
-    end
-
-    for i,v in ipairs(treasures) do
-        v:move(base.position)
-    end
-
-    base:checkCollision()
-
-    world:update(dt)
-    for i, v in ipairs(shots) do
-        v:checkCollision()
-    end
-    player:updatePlayerPosition()
-
-    -- --cleanup
-    for i,v in ipairs(shots) do
-        if not v.isActive then
-            table.remove(shots, i)
-        end
-    end
-
-    for i,v in ipairs(treasures) do
-        if not v.isActive then
-            table.remove(treasures, i)
-        end
-    end
-
-    for i, v in ipairs(shots) do
-        v.position.x = v.collider:getX()
-        v.position.y = v.collider:getY()
-    end
-
-    for i, v in ipairs(treasures) do
-        v.position.x = v.collider:getX()
-        v.position.y = v.collider:getY()
-    end
-
-    for i,v in ipairs(enemies) do
-        if v.alive then
-            v.position.x = v.collider:getX()
-            v.position.y = v.collider:getY()
-        end
-    end
-
-    player.anim:update(dt)
-
     cam:lookAt(player.position.x, player.position.y)
 
     local w=love.graphics.getWidth()
@@ -90,15 +38,11 @@ end
 function love.draw()
     
     cam:attach()
-        gameMap:drawLayer(gameMap.layers["Tile Layer 1"])
+        gameMap:drawLayer(gameMap.layers["ground"])
         gameMap:drawLayer(gameMap.layers["trees"])
+        gameMap:drawLayer(gameMap.layers["walls-sprites"])
                 
-        draw()
-
-        --Temporary to show colliders
-        if DEBUG then
-            world:draw()
-        end
+        drawAll()
         
     cam:detach()
 
@@ -107,9 +51,9 @@ function love.draw()
 end
 
 function love.keypressed(key)
+    checkInput(key)
     if key == "space" then
-        local newShot = createShot(player)
-        -- table.insert(shots, newShot)
+        createShot(player)
     elseif key == "a" then
         player:scrollMode(-1)
     elseif key == "s" then

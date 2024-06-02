@@ -10,29 +10,20 @@ function startup()
     
     createCollisionClasses()
     
+    loadMap("testMap2")
 
     cam = camera()
 
-    gameMap = sti('maps/testMap.lua')
+    
     love.graphics.setDefaultFilter("nearest", "nearest")
     
     
     player = Player.createPlayer()
 
-    background = love.graphics.newImage('sprites/background.png')
-
     -- sounds.music:setLooping(true)
     -- sounds.music:play()
 
-    createEnemy("enemyType1", {x=200, y=300})
-    createEnemy("enemyType1", {x=500, y=800})
-    createEnemy("enemyType2", {x=1000, y=1000})
-
-    createTreasure({x=500, y=500})
-    createTreasure({x=800, y=200})
-    createTreasure({x=100, y=800})
-
-
+    
     base = Base.createBase({x= 100, y=100})
 end
 
@@ -44,6 +35,9 @@ function loadRequirements()
     require('/src/treasure')
 
     require('draw')
+    require('update')
+    require('controlHandling')
+    require('loadMap')
 
     anim8 = require 'libraries/anim8'
     sti = require 'libraries/sti'

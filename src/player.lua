@@ -98,6 +98,12 @@ function Player.createPlayer()
         self.anim:draw(player.spriteSheet, player.position.x, player.position.y, nil, 6, nil, 6, 9)
     end
 
+    function player:update(dt)
+        self:movePlayer()
+        self.anim:update(dt)
+        self:updatePlayerPosition()
+    end
+
     return player
 end
 

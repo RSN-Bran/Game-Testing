@@ -56,8 +56,19 @@ function createTreasure(position)
     end
 
     function treasure:cash()
-        self.isActive = false
+        self:deactivate()
+    end
+
+    function treasure:update(dt)
+        self:move(base.position)
+        self.position.x = self.collider:getX()
+        self.position.y = self.collider:getY()
+    end
+
+    function treasure:deactivate()
+        self.isActive=false
         self.collider:destroy()
+        removeValue(treasures, self)
     end
 
     table.insert(treasures, treasure)
@@ -69,6 +80,14 @@ function treasures:draw()
     for i, v in ipairs(self) do
         if v.isActive then
             v:draw()
+        end
+    end
+end
+
+function treasures:update()
+    for i, v in ipairs(self) do
+        if v.isActive then
+            v:update()
         end
     end
 end

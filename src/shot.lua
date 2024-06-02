@@ -27,21 +27,18 @@ function createShot(player)
             local collision_data =self.collider:getEnterCollisionData('Enemy-Hurtbox')
             local enemy = collision_data.collider:getObject()
             enemy:damageEnemy(self.damage)
-            self.isActive=false
-            self.collider:destroy()
+            self:deactivate()
         elseif self.collider:enter('Treasure') then
             local collision_data =self.collider:getEnterCollisionData('Treasure')
             local treasure = collision_data.collider:getObject()
             treasure:increaseCarry(self.carrySpeed)
-            self.isActive=false
-            self.collider:destroy()
+            self:deactivate()
         else
             self.collider:setLinearVelocity(self.xVelocity, self.yVelocity)
             
             self.ttl = self.ttl-1
             if self.ttl <= 0 then
-                self.isActive=false
-                self.collider:destroy()
+                self:deactivate()
             end
         end
     end
@@ -58,6 +55,22 @@ function createShot(player)
         love.graphics.setColor(1,1,1)
     end
 
+    function shot:update(dt)
+
+        self:checkCollision()
+
+        if self.isActive then
+            self.position.x = self.collider:getX()
+            self.position.y = self.collider:getY()
+        end
+    end
+
+    function shot:deactivate()
+        self.isActive=false
+        self.collider:destroy()
+        removeValue(shots, self)
+    end
+
     table.insert(shots, shot)
 
     return shot
@@ -68,6 +81,12 @@ function shots:draw()
         if v.isActive then
             v:draw()
         end
+    end
+end
+
+function shots:update(dt)
+    for i, v in ipairs(self) do
+        v:update(dt)
     end
 end
 

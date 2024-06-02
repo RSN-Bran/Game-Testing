@@ -18,12 +18,12 @@ function createEnemy(enemyType, position)
         self.hurtTimer=self.hurtAnimationLength
         if self.health <= 0 then
             self.alive = false
-            self.isActive = false
-            self.collider:destroy()
+            self:deactivate()
         end
     end
 
-    function enemy:behavior(playerPosition, dt)
+    function enemy:behavior(dt)
+        local playerPosition = player.position
         distance = calculateDistance(self.position, playerPosition)
         if distance < self.watchRadius then
 
@@ -80,6 +80,22 @@ function createEnemy(enemyType, position)
         end
     end
 
+    function enemy:update(dt)
+        if self.alive then
+            self:behavior(player.position, dt)
+
+            self.position.x = self.collider:getX()
+            self.position.y = self.collider:getY()
+        end
+        
+    end
+
+    function enemy:deactivate()
+        self.isActive=false
+        self.collider:destroy()
+        removeValue(enemies, self)
+    end
+
     table.insert(enemies, enemy)
 
     return enemy
@@ -90,6 +106,12 @@ function enemies:draw()
         if v.isActive then
             v:draw()
         end
+    end
+end
+
+function enemies:update(dt)
+    for i, v in ipairs(self) do
+        v:update()
     end
 end
 

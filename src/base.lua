@@ -21,6 +21,10 @@ function Base.createBase(position)
         end
     end
 
+    function base:update(dt)
+        self:checkCollision()
+    end
+
     return base
 end
 
