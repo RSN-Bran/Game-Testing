@@ -10,12 +10,12 @@ controls = {
     pause={inputs={"escape"}, active=false}
 }
 
-function checkInput(key)
+function checkInput(key, keypressed)
     for i, v in ipairs(actions) do
         local controlMapping = controls[v]
-        if contains(controlMapping.inputs, key) then
+        if contains(controlMapping.inputs, key) and keypressed then
             controlMapping.active=true
-        else
+        elseif contains(controlMapping.inputs, key) and not keypressed then
             controlMapping.active=false
         end
     end

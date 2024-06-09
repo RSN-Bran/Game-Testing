@@ -6,4 +6,5 @@ function updateAll(dt)
     enemies:update(dt)
     treasures:update(dt)
     base:update(dt)
+    warps:update(dt)
 end

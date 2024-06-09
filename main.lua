@@ -29,7 +29,7 @@ function love.draw()
 end
 
 function love.keypressed(key)
-    checkInput(key)
+    checkInput(key, true)
     if key == "space" then
         createShot(player)
     elseif key == "a" then
@@ -39,4 +39,8 @@ function love.keypressed(key)
     elseif key == "escape" then
         love.event.push("quit")
     end
+end
+
+function love.keyreleased(key)
+    checkInput(key, false)
 end

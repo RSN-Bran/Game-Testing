@@ -5,7 +5,14 @@ function loadMap(map)
     if gameMap.properties["music"] then
         gameMusic:playMusic(gameMap.properties["music"])
     end
-    
+
+    if gameMap.layers["warps"] then
+        for i, obj in pairs(gameMap.layers["warps"].objects) do
+            createWarp(extractWarpProperties(obj))
+        end
+    end
+        
+
     if gameMap.layers["enemies"] then
         for i, obj in pairs(gameMap.layers["enemies"].objects) do
             createEnemy(obj.type, {x=obj.x, y=obj.y})

@@ -4,6 +4,7 @@ function drawAll()
     shots:draw()
     enemies:draw()
     treasures:draw()
+    warps:draw()
 
     --Temporary to show colliders
     if DEBUG then

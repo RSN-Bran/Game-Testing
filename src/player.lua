@@ -45,28 +45,28 @@ function createPlayer()
         local vx = 0
         local vy = 0
 
-        if love.keyboard.isDown("right") then
+        if controls["right"].active then
             vx=player.speed
             player.anim = player.animations.right
             isMoving = true
             player.facing = "right"
         end
 
-        if love.keyboard.isDown("left") then
+        if controls["left"].active then
             vx=player.speed * -1
             player.anim = player.animations.left
             isMoving = true
             player.facing = "left"
         end
 
-        if love.keyboard.isDown("up") then
+        if controls["up"].active then
             vy = player.speed *-1
             player.anim = player.animations.up
             isMoving = true
             player.facing = "up"
         end
 
-        if love.keyboard.isDown("down") then
+        if controls["down"].active then
             vy = player.speed
             player.anim = player.animations.down
             isMoving = true
@@ -98,6 +98,11 @@ function createPlayer()
 
     function player:draw()
         self.anim:draw(player.spriteSheet, player.position.x, player.position.y, nil, 6, nil, 6, 9)
+    end
+
+    function player:warp(newPos)
+        self.collider:setX(newPos.x)
+        self.collider:setX(newPos.y)
     end
 
     function player:update(dt)
