@@ -12,7 +12,6 @@ return {
   nextlayerid = 9,
   nextobjectid = 18,
   properties = {
-    ["mapId"] = "1",
     ["music"] = "music"
   },
   tilesets = {
@@ -366,10 +365,7 @@ return {
           height = 0,
           rotation = 0,
           visible = true,
-          properties = {
-            ["warpId"] = "2",
-            ["warpTo"] = "1"
-          }
+          properties = {}
         },
         {
           id = 15,
@@ -382,10 +378,7 @@ return {
           height = 0,
           rotation = 0,
           visible = true,
-          properties = {
-            ["warpId"] = "1",
-            ["warpTo"] = "2"
-          }
+          properties = {}
         }
       }
     },

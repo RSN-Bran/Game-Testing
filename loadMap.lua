@@ -2,6 +2,7 @@ function loadMap(map)
 
     gameMap = sti('maps/'..map..'.lua')
 
+    print(gameMap.properties.music)
     if gameMap.properties["music"] then
         gameMusic:playMusic(gameMap.properties["music"])
     end
@@ -12,7 +13,6 @@ function loadMap(map)
         end
     end
         
-
     if gameMap.layers["enemies"] then
         for i, obj in pairs(gameMap.layers["enemies"].objects) do
             createEnemy(obj.type, {x=obj.x, y=obj.y})

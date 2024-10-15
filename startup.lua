@@ -14,6 +14,8 @@ function startup()
     
     player = createPlayer()
 
+    state = createState()
+
     
 end
 
@@ -24,6 +26,8 @@ function loadRequirements()
     require('/src/base')
     require('/src/treasure/treasure')
     require('/src/warp')
+    require('/src/state')
+    require('/src/sound')
 
     require('draw')
     require('update')

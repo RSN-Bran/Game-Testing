@@ -102,7 +102,7 @@ function createPlayer()
 
     function player:warp(newPos)
         self.collider:setX(newPos.x)
-        self.collider:setX(newPos.y)
+        self.collider:setY(newPos.y)
     end
 
     function player:update(dt)

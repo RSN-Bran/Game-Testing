@@ -19,8 +19,7 @@ function createShot(player)
         shot.yVelocity = shot.shotSpeed
     end
 
-    shot.soundEffect:setPitch(shot.pitch)
-    shot.soundEffect:play()
+    shot.sound:playSound()
 
     function shot:checkCollision()
         if self.collider:enter('Enemy-Hurtbox') then
@@ -98,8 +97,7 @@ function shotParams(shotType)
             shotSpeed = 500,
             damage = 1,
             shotType = "White",
-            soundEffect = love.audio.newSource('sounds/blip.wav', "static"),
-            pitch = 1,
+            sound = createSound('sounds/blip.wav', 1),
             carrySpeed=1
         }
     elseif shotType == "Red" then
@@ -108,8 +106,7 @@ function shotParams(shotType)
             shotSpeed = 800,
             damage = 2,
             shotType = "Red",
-            soundEffect = love.audio.newSource('sounds/blip.wav', "static"),
-            pitch=.5,
+            sound = createSound('sounds/blip.wav', .5),
             carrySpeed=2
         }
     elseif shotType == "Blue" then
@@ -118,8 +115,7 @@ function shotParams(shotType)
             shotSpeed = 1000,
             damage = .5,
             shotType = "Blue",
-            soundEffect = love.audio.newSource('sounds/blip.wav', "static"),
-            pitch=2,
+            sound = createSound('sounds/blip.wav', 2),
             carrySpeed=4
         }
     end

@@ -29,15 +29,24 @@ function love.draw()
 end
 
 function love.keypressed(key)
-    checkInput(key, true)
-    if key == "space" then
-        createShot(player)
-    elseif key == "a" then
-        player:scrollMode(-1)
-    elseif key == "s" then
-        player:scrollMode(1)
-    elseif key == "escape" then
-        love.event.push("quit")
+    if state.currentState == "PLAYING" then
+        checkInput(key, true)
+        if key == "space" then
+            createShot(player)
+        elseif key == "a" then
+            player:scrollMode(-1)
+        elseif key == "s" then
+            player:scrollMode(1)
+        elseif key == "1" then
+            love.event.push("quit")
+        elseif key == "escape" then
+            state:pauseOrUnpause()
+        end
+    elseif state.currentState=="PAUSED" then
+        --checkInput(key, true)
+        if key == "escape" then
+            state:pauseOrUnpause()
+        end
     end
 end
 

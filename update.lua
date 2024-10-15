@@ -1,4 +1,10 @@
 function updateAll(dt)
+    if state.currentState == "PLAYING" then
+        updateGameObjects(dt)
+    end
+end
+
+function updateGameObjects(dt)
     world:update(dt)
     cam:update(dt)
     player:update(dt)

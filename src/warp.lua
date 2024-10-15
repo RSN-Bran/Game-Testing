@@ -8,7 +8,7 @@ function createWarp(params)
     warp.y=params.y
 
     warp.isActive=true
-
+ 
     warp.collider = world:newCircleCollider(warp.x, warp.y, 50)
     warp.collider:setCollisionClass('warp')
     warp.collider:setObject(warp)
@@ -18,14 +18,19 @@ function createWarp(params)
     end
 
     function warp:checkCollision()
-        if self.collider:enter('Player') then
-            player:warp({x=200,y=200})
+        if self.collider:enter('Player') and self.isActive then
+            newWarp = warps:find(self.warpTo)
+            newWarp:switchActivation()
+            player:warp({x=newWarp.x,y=newWarp.y})
         end
     end
 
     function warp:update(dt)
         self:checkCollision()
-        
+    end
+
+    function warp:switchActivation()
+        self.isActive = not self.isActive
     end
 
     table.insert(warps, warp)
@@ -55,6 +60,14 @@ function warps:draw()
     for i, v in ipairs(self) do
         if v.isActive then
             v:draw()
+        end
+    end
+end
+
+function warps:find(warpTo)
+    for i, v in ipairs(self) do
+        if v.warpId==warpTo then
+            return v
         end
     end
 end
