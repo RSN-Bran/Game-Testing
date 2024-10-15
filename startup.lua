@@ -1,6 +1,8 @@
 function startup()
 
     loadRequirements()
+    TEXT = json.decode(love.filesystem.read("text.json"))
+    print(TEXT["SETTINGS"]["en"])
     world = wf.newWorld(0, 0)
     createCollisionClasses()
     
@@ -15,6 +17,9 @@ function startup()
     player = createPlayer()
 
     state = createState()
+    menu = createMenu()
+    
+    language = "en"
 
     
 end
@@ -28,6 +33,7 @@ function loadRequirements()
     require('/src/warp')
     require('/src/state')
     require('/src/sound')
+    require('/src/menu')
 
     require('draw')
     require('update')
@@ -38,8 +44,8 @@ function loadRequirements()
 
     anim8 = require 'libraries/anim8'
     sti = require 'libraries/sti'
-    
     wf = require "libraries/windfield"
+    json = require "libraries/json"
 end
 
 function createCollisionClasses()

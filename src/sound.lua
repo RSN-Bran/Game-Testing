@@ -10,6 +10,5 @@ function createSound(source, pitch)
         soundSource:play()
     end
 
-
     return sound
 end

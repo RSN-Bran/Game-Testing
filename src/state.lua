@@ -14,8 +14,10 @@ function createState()
         pauseSound:playSound()
         if state.currentState == "PAUSED" then
             state.currentState = "PLAYING"
+            menu:switchActivation()
         else
             state.currentState="PAUSED"
+            menu:switchActivation()
         end
     end
 

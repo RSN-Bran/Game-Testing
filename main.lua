@@ -8,9 +8,7 @@ function love.load()
 end
 
 function love.update(dt)
-
     updateAll(dt)
-    
 end
 
 function love.draw()
