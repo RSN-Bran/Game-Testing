@@ -3,25 +3,9 @@ menu = {}
 function createMenu(params)
     menu = {}
 
-    menu.isActive=false
-
-    menu.selectedAction = "SETTINGS"
+    menu.selectedAction = 1
 
 
-    function menu:draw()
-        if menu.isActive then
-            love.graphics.print(TEXT[self.selectedAction][language], 100, 200)
-        end
-    end
-
-    -- function warp:update(dt)
-    --     self:checkCollision()
-    -- end
-
-    function menu:switchActivation()
-        menu.selectedAction = "SETTINGS"
-        self.isActive = not self.isActive
-    end
-
+    menu.items = {createMenuItem(PAUSE_MENU_SETTINGS), createMenuItem(PAUSE_MENU_QUIT)}
     return menu
 end

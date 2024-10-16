@@ -2,7 +2,7 @@ function startup()
 
     loadRequirements()
     TEXT = json.decode(love.filesystem.read("text.json"))
-    print(TEXT["SETTINGS"]["en"])
+    
     world = wf.newWorld(0, 0)
     createCollisionClasses()
     
@@ -34,6 +34,7 @@ function loadRequirements()
     require('/src/state')
     require('/src/sound')
     require('/src/menu')
+    require('/src/menu_item')
 
     require('draw')
     require('update')

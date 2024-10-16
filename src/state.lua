@@ -7,17 +7,15 @@ function createState()
     -- - PAUSED
     -- - INVENTORY
 
-    state.currentState = "PLAYING"
+    state.currentState = STATE_PLAYING
 
     function state:pauseOrUnpause()
         pauseSound = createSound('sounds/pause.wav', 1)
         pauseSound:playSound()
-        if state.currentState == "PAUSED" then
-            state.currentState = "PLAYING"
-            menu:switchActivation()
+        if state.currentState == STATE_PAUSED then
+            state.currentState = STATE_PLAYING
         else
-            state.currentState="PAUSED"
-            menu:switchActivation()
+            state.currentState=STATE_PAUSED 
         end
     end
 

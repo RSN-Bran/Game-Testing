@@ -1,10 +1,9 @@
-require 'global'
+require('/global/functions')
+require('/global/constants')
 
 function love.load()
-
-    require('/startup')
+    require('/startup')  
     startup()
-
 end
 
 function love.update(dt)
@@ -13,21 +12,15 @@ end
 
 function love.draw()
     
-    cam:attach()
-        gameMap:drawLayer(gameMap.layers["ground"])
-        gameMap:drawLayer(gameMap.layers["trees"])
-        gameMap:drawLayer(gameMap.layers["walls-sprites"])
-                
-        drawAll()
-        
-    cam:detach()
-
-    love.graphics.print(base.money)
-    
+    if state.currentState == STATE_PLAYING then
+        drawGame()
+    elseif state.currentState== STATE_PAUSED then
+        drawMenu()
+    end
 end
 
 function love.keypressed(key)
-    if state.currentState == "PLAYING" then
+    if state.currentState == STATE_PLAYING then
         checkInput(key, true)
         if key == "space" then
             createShot(player)
@@ -39,8 +32,9 @@ function love.keypressed(key)
             love.event.push("quit")
         elseif key == "escape" then
             state:pauseOrUnpause()
+            menu=createMenu()
         end
-    elseif state.currentState=="PAUSED" then
+    elseif state.currentState==STATE_PAUSED then
         --checkInput(key, true)
         if key == "escape" then
             state:pauseOrUnpause()

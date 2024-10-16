@@ -1,5 +1,5 @@
 function updateAll(dt)
-    if state.currentState == "PLAYING" then
+    if state.currentState == STATE_PLAYING then
         updateGameObjects(dt)
     end
 end
