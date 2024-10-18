@@ -35,17 +35,22 @@ function printTableKeys(tab)
         print(k)
     end
 end
--- function dump(o)
---     if type(o) == 'table' then
---        local s = '{ '
---        for k,v in pairs(o) do
---           if type(k) ~= 'number' then k = '"'..k..'"' end
---           s = s .. '['..k..'] = ' .. dump(v) .. ','
---        end
---        return s .. '} '
---     else
---        return tostring(o)
---     end
---  end
 
--- type(t) == "table"
+function increment(val, inc)
+    return val + inc
+end
+
+function dumpTable(table, depth)
+    if (depth > 200) then
+      print("Error: Depth > 200 in dumpTable()")
+      return
+    end
+    for k,v in pairs(table) do
+      if (type(v) == "table") then
+        print(string.rep("  ", depth)..k..":")
+        dumpTable(v, depth+1)
+      else
+        print(string.rep("  ", depth)..k..": ",v)
+      end
+    end
+  end

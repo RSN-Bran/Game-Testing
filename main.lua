@@ -32,12 +32,18 @@ function love.keypressed(key)
             love.event.push("quit")
         elseif key == "escape" then
             state:pauseOrUnpause()
-            menu=createMenu()
+            menu=createMenu(MENUS_MAIN_PAUSE)
         end
     elseif state.currentState==STATE_PAUSED then
         --checkInput(key, true)
         if key == "escape" then
             state:pauseOrUnpause()
+        elseif key == "up" then
+            menu:scroll("up")
+        elseif key == "down" then
+            menu:scroll("down")
+        elseif key == "space" then
+            menu:select()
         end
     end
 end

@@ -1,4 +1,5 @@
 {
     "SETTINGS": {"en": "Settings", "es": "Ajustes"},
-    "QUIT": {"en": "Quit", "es": ""}
+    "QUIT": {"en": "Quit", "es": "Abandonar"},
+    "LANGUAGE": {"en": "Language", "es": "Lengua"}
 }

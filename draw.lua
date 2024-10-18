@@ -12,7 +12,7 @@ end
 
 function drawMenu()
     for index, value in ipairs(menu.items) do
-        if value.params.id == menu.selectedAction then
+        if value.params.id == menu.selectedAction.params.id then
 
             love.graphics.print(value.params.name, value.params.x+50, value.params.y)
         else
